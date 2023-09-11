@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:state_management_tuto/Provider/services/login_provider_service.dart';
 import '../../shared/widgets.dart';
 
 class LoginProviderNotifier extends ChangeNotifier {
+  final LoginProviderService _loginProviderService;
+  LoginProviderNotifier(this._loginProviderService);
   bool _isLoggIn = false;
   bool get isLoggIn => _isLoggIn;
 
@@ -23,7 +26,7 @@ class LoginProviderNotifier extends ChangeNotifier {
     }else{
       _isLoggIn = true;
       notifyListeners();
-      await Future.delayed(const Duration(seconds: 5), () {
+      await _loginProviderService.loginProvider(username: username, password: password).then((value) {
         ScaffoldMessenger.of(context).showSnackBar(showSnackBar(context: context, content: 'Logged successfully!', label: 'Success', color: Colors.green));
       });
       _isLoggIn = false;

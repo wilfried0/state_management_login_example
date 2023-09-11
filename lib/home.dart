@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:state_management_tuto/Provider/login_provider.dart';
 import 'package:state_management_tuto/Provider/notifiers/login_provider_notifier.dart';
+import 'package:state_management_tuto/Provider/services/login_provider_service.dart';
 import 'package:state_management_tuto/Riverpod/login_riverpod.dart';
 import 'package:state_management_tuto/shared/custom_button.dart';
 import 'package:state_management_tuto/shared/widgets.dart';
@@ -36,7 +37,7 @@ class Home extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => MultiProvider(
                     providers: [
                       ChangeNotifierProvider(create: (_) => PasswordVisibilityProviderNotifier()),
-                      ChangeNotifierProvider(create: (_) => LoginProviderNotifier())
+                      ChangeNotifierProvider(create: (_) => LoginProviderNotifier(LoginProviderService()))
                     ],
                       child: LoginProvider()
                   )));
