@@ -4,6 +4,7 @@ import 'package:state_management_tuto/Provider/login_provider.dart';
 import 'package:state_management_tuto/Provider/notifiers/login_provider_notifier.dart';
 import 'package:state_management_tuto/Provider/services/login_provider_service.dart';
 import 'package:state_management_tuto/Riverpod/login_riverpod.dart';
+import 'package:state_management_tuto/ValueNotifier/login_value_notifier.dart';
 import 'package:state_management_tuto/shared/custom_button.dart';
 import 'package:state_management_tuto/shared/widgets.dart';
 
@@ -48,7 +49,7 @@ class Home extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
             CustomButton(
-                onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginValueNotifier())),
                 title: 'ValueNotifier',
                 textStyle: customTextStyleButton(),
                 color: Colors.purpleAccent
