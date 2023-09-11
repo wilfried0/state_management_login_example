@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_management_tuto/shared/widgets.dart';
-import '../services/login_service.dart';
+import '../../shared/widgets.dart';
 
-final loginNotifierProvider = StateNotifierProvider<LoginNotifier, bool>(
-        (ref) => LoginNotifier(ref.watch(loginServiceProvider))
-);
-
-class LoginNotifier extends StateNotifier<bool>{
-  final LoginService _loginService;
-  LoginNotifier(this._loginService) : super(false);
+class LoginProviderNotifier extends ChangeNotifier {
+  bool _isLoggIn = false;
+  bool get isLoggIn => _isLoggIn;
 
   login({required String username, required String password, required BuildContext context}) async {
     if(password.isEmpty) {
@@ -27,15 +21,13 @@ class LoginNotifier extends StateNotifier<bool>{
     if(password != 'password'){
       ScaffoldMessenger.of(context).showSnackBar(showSnackBar(context: context, content: 'Username or password doesn\'t match', label: 'Error'));
     }else{
-      try {
-        state = true;
-        await _loginService.login(username: username, password: password).then((value) {
-          ScaffoldMessenger.of(context).showSnackBar(showSnackBar(context: context, content: 'Logged successfully!', label: 'Success', color: Colors.green));
-        });
-        state = false;
-      }catch(e){
-        state = false;
-      }
+      _isLoggIn = true;
+      notifyListeners();
+      await Future.delayed(const Duration(seconds: 5), () {
+        ScaffoldMessenger.of(context).showSnackBar(showSnackBar(context: context, content: 'Logged successfully!', label: 'Success', color: Colors.green));
+      });
+      _isLoggIn = false;
+      notifyListeners();
     }
   }
 }

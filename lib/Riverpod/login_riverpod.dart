@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:state_management_tuto/shared/functions.dart';
 import '../shared/widgets.dart';
-import 'notifiers/login_notifier.dart';
-import 'notifiers/password_visibility_notifier.dart';
+import 'notifiers/login_riverpod_notifier.dart';
+import 'notifiers/password_visibility_riverpod_notifier.dart';
 import '../shared/custom_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -105,10 +106,10 @@ class LoginRiverpod extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: const FloatingActionButton(
           backgroundColor: Colors.purpleAccent,
-          child: const Icon(Icons.code, color: Colors.white,),
-          onPressed: () => null,
+          onPressed: launchURL,
+          child: Icon(Icons.code, color: Colors.white,),
       ),
     );
   }
