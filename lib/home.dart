@@ -18,57 +18,61 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.purple.shade100,
       appBar: customAppBar(title: 'Choose state management'),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.lock_outline, size: 50, color: Colors.black),
-            const Text("Login with", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 25),),
-            const SizedBox(height: 40,),
-            CustomButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
-                title: 'Riverpod',
-                textStyle: customTextStyleButton(),
-                color: Colors.purpleAccent
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.lock_outline, size: 50, color: Colors.black),
+                const Text("Login with", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 25),),
+                const SizedBox(height: 40,),
+                CustomButton(
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
+                    title: 'Riverpod',
+                    textStyle: customTextStyleButton(),
+                    color: Colors.purpleAccent
+                ),
+                const SizedBox(height: 20,),
+                CustomButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => MultiProvider(
+                        providers: [
+                          ChangeNotifierProvider(create: (_) => PasswordVisibilityProviderNotifier()),
+                          ChangeNotifierProvider(create: (_) => LoginProviderNotifier(LoginProviderService()))
+                        ],
+                          child: LoginProvider()
+                      )));
+                    },
+                    title: 'Provider',
+                    textStyle: customTextStyleButton(),
+                    color: Colors.purpleAccent
+                ),
+                const SizedBox(height: 20,),
+                CustomButton(
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginValueNotifier())),
+                    title: 'ValueNotifier',
+                    textStyle: customTextStyleButton(),
+                    color: Colors.purpleAccent
+                ),
+                const SizedBox(height: 20,),
+                CustomButton(
+                    onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
+                    title: 'Inherited',
+                    textStyle: customTextStyleButton(),
+                    color: Colors.purpleAccent
+                ),
+                const SizedBox(height: 20,),
+                CustomButton(
+                    onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
+                    title: 'Stream',
+                    textStyle: customTextStyleButton(),
+                    color: Colors.purpleAccent
+                ),
+              ],
             ),
-            const SizedBox(height: 20,),
-            CustomButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => MultiProvider(
-                    providers: [
-                      ChangeNotifierProvider(create: (_) => PasswordVisibilityProviderNotifier()),
-                      ChangeNotifierProvider(create: (_) => LoginProviderNotifier(LoginProviderService()))
-                    ],
-                      child: LoginProvider()
-                  )));
-                },
-                title: 'Provider',
-                textStyle: customTextStyleButton(),
-                color: Colors.purpleAccent
-            ),
-            const SizedBox(height: 20,),
-            CustomButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginValueNotifier())),
-                title: 'ValueNotifier',
-                textStyle: customTextStyleButton(),
-                color: Colors.purpleAccent
-            ),
-            const SizedBox(height: 20,),
-            CustomButton(
-                onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
-                title: 'Inherited',
-                textStyle: customTextStyleButton(),
-                color: Colors.purpleAccent
-            ),
-            const SizedBox(height: 20,),
-            CustomButton(
-                onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
-                title: 'Stream',
-                textStyle: customTextStyleButton(),
-                color: Colors.purpleAccent
-            ),
-          ],
+          ),
         ),
       ),
     );
