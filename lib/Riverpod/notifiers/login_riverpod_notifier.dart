@@ -1,15 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:state_management_tuto/domain/user.dart';
 import 'package:state_management_tuto/shared/widgets.dart';
 import '../services/login_riverpod_service.dart';
 
-final loginNotifierProvider = StateNotifierProvider<LoginRiverpodNotifier, bool>(
+final loginNotifierProvider = StateNotifierProvider<LoginRiverpodNotifier, User>(
         (ref) => LoginRiverpodNotifier(ref.watch(loginServiceProvider))
 );
 
-class LoginRiverpodNotifier extends StateNotifier<bool>{
+class LoginRiverpodNotifier extends StateNotifier<User>{
   final LoginRiverpodService _loginService;
-  LoginRiverpodNotifier(this._loginService) : super(false);
+  LoginRiverpodNotifier(this._loginService) : super(User(isLoading: false));
 
   login({required String username, required String password, required BuildContext context}) async {
     if(password.isEmpty) {
@@ -28,13 +30,13 @@ class LoginRiverpodNotifier extends StateNotifier<bool>{
       ScaffoldMessenger.of(context).showSnackBar(showSnackBar(context: context, content: 'Username or password doesn\'t match', label: 'Error'));
     }else{
       try {
-        state = true;
+        state = User(isLoading: true);
         await _loginService.loginRiverpod(username: username, password: password).then((value) {
           ScaffoldMessenger.of(context).showSnackBar(showSnackBar(context: context, content: 'Logged successfully!', label: 'Success', color: Colors.green));
+          state = value;
         });
-        state = false;
       }catch(e){
-        state = false;
+        state = User(isLoading: false);
       }
     }
   }

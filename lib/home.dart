@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
                 CustomButton(
                     onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
                     title: 'Riverpod',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 ),
                 const SizedBox(height: 20,),
@@ -46,28 +46,28 @@ class Home extends StatelessWidget {
                       )));
                     },
                     title: 'Provider',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 ),
                 const SizedBox(height: 20,),
                 CustomButton(
                     onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginValueNotifier())),
                     title: 'ValueNotifier',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 ),
                 const SizedBox(height: 20,),
                 CustomButton(
                     onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
                     title: 'Inherited',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 ),
                 const SizedBox(height: 20,),
                 CustomButton(
                     onPressed: () => null,//Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRiverpod())),
                     title: 'Stream',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:state_management_tuto/domain/user.dart';
 import 'package:state_management_tuto/shared/functions.dart';
 import '../shared/widgets.dart';
 import 'notifiers/login_riverpod_notifier.dart';
@@ -6,8 +7,9 @@ import 'notifiers/password_visibility_riverpod_notifier.dart';
 import '../shared/custom_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginRiverpod extends StatelessWidget {
+class LoginRiverpod extends StatelessWidget{
   final TextEditingController usernameController = TextEditingController(), passwordController = TextEditingController();
+  User user = User(isLoading: false);
 
   @override
   void dispose(){
@@ -87,8 +89,8 @@ class LoginRiverpod extends StatelessWidget {
 
             Consumer(
               builder: (context, ref, _) {
-                bool isLoading = ref.watch(loginNotifierProvider);
-                return isLoading? const CircularProgressIndicator():
+                user = ref.watch(loginNotifierProvider);
+                return user.isLoading? const CircularProgressIndicator():
                 CustomButton(
                     onPressed: () {
                       ref.read(loginNotifierProvider.notifier).login(
@@ -98,10 +100,18 @@ class LoginRiverpod extends StatelessWidget {
                       );
                     },
                     title: 'Connexion',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 );
               }
+            ),
+
+            Consumer(
+                builder: (context, ref, _) {
+                  user = ref.watch(loginNotifierProvider);
+                  return user.id == null? Container():
+                      displayUser(user);
+                }
             )
           ],
         ),
@@ -113,4 +123,6 @@ class LoginRiverpod extends StatelessWidget {
       ),
     );
   }
+
+
 }

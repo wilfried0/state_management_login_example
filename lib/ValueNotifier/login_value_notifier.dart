@@ -102,7 +102,7 @@ class LoginValueNotifier extends StatelessWidget {
                       );
                     },
                     title: 'Connexion',
-                    textStyle: customTextStyleButton(),
+                    textStyle: textStyleButton(),
                     color: Colors.purpleAccent
                 );
               }
